@@ -18,7 +18,7 @@
 # find the logged in user and let them know #
 #############################################
 
-currentUser=$(who | awk '/console/{print $1}')
+currentUser=$(scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ && ! /loginwindow/ { print $3 }')
 echo $currentUser
 
 osascript -e 'display dialog "You now have administrative rights for 30 minutes. DO NOT ABUSE THIS PRIVILEGE..." buttons {"Make me an admin, please"} default button 1'
